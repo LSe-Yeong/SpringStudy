@@ -65,4 +65,23 @@ class PostControllerTest {
 
         verify(postService).create(any(PostRequestDto.class));
     }
+
+    @Test
+    void post_method_테스트3() throws Exception {
+
+        // given
+        PostRequestDto requestDTO = new PostRequestDto();
+        requestDTO.setTitle("");
+        requestDTO.setContent("내용");
+
+        given(postService.create(any(PostRequestDto.class))).willThrow(new IllegalArgumentException());
+
+        // when & then
+        mockMvc.perform(post("/post")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(new ObjectMapper().writeValueAsString(requestDTO)))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON));
+
+    }
 }
