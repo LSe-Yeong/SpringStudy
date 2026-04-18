@@ -1,6 +1,12 @@
 package com.example.swagger_study.controller;
 
 import com.example.swagger_study.dto.ContentRequestDTO;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.Map;
 import org.springframework.http.HttpHeaders;
@@ -20,6 +26,33 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1")
 public class ContentController {
 
+    @Operation(
+            summary = "게시글 Read",
+            description = "게시글의 ID를 파라미터로 보내면 해당하는 게시글 조회",
+            parameters = {
+                    @Parameter(
+                            name = "id",
+                            description = "조회할 게시글 ID",
+                            required = true,
+                            in = ParameterIn.PATH
+                    )
+            },
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "성공",
+                            content = @Content(
+                                    mediaType = "application/json",
+                                    // 응답 예시로 사용할 DTO 설정
+                                    schema = @Schema(implementation = ContentRequestDTO.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "400",
+                            description = "실패"
+                    )
+            }
+    )
     @GetMapping("/content/{id}")
     public ResponseEntity<?> contentGet(
             @PathVariable("id")Long id
@@ -36,6 +69,7 @@ public class ContentController {
 
         return new ResponseEntity<>(resultBody, httpHeaders, HttpStatus.OK);
     }
+
 
     @PostMapping("/content")
     public ResponseEntity<?> contentPost(
