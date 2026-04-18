@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Tag(name = "Content API", description = "게시글 도메인 API")
 @RestController
-@RequestMapping("/api/v1")
-public class ContentController {
+@RequestMapping("/api/v2")
+public class ContentController2 {
 
     @GetMapping("/content/{id}")
     public ResponseEntity<?> contentGet(
