@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.Map;
 import org.springframework.http.HttpHeaders;
@@ -51,7 +52,8 @@ public class ContentController {
                             responseCode = "400",
                             description = "실패"
                     )
-            }
+            },
+            security = @SecurityRequirement(name = "JWT")
     )
     @GetMapping("/content/{id}")
     public ResponseEntity<?> contentGet(
