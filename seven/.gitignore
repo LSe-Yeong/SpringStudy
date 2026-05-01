@@ -12,6 +12,7 @@ build/
 .project
 .settings
 .env
+.application-secret.properties
 .springBeans
 .sts4-cache
 bin/
