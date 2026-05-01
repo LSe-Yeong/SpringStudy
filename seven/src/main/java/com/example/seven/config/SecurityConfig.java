@@ -16,6 +16,12 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable());
 
+        // 로그인 필터 활성화
+        http
+                .formLogin(login -> login
+                        .loginProcessingUrl("/login")
+                        .loginPage("/login"));
+
         return http.build();
     }
 
