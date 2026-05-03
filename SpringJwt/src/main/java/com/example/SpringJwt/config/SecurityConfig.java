@@ -1,5 +1,6 @@
 package com.example.SpringJwt.config;
 
+import com.example.SpringJwt.jwt.JwtFilter;
 import com.example.SpringJwt.jwt.JwtUtil;
 import com.example.SpringJwt.jwt.LoginFilter;
 import java.io.IOException;
@@ -61,11 +62,12 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
         http
+                .addFilterBefore(new JwtFilter(jwtUtil), LoginFilter.class);
+
+        http
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration),jwtUtil),
                         UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
-
-
 }
